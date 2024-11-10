@@ -1,0 +1,219 @@
+/*! \mainpage Juego de las letras
+
+# Introducción
+
+@image html juegodelas.png
+@image html letras.png
+
+Este programa, realizado por Laura Zafra Alarcos y Antonio Manuel de Pablos Pancorbo, se ha implementado con la
+finalidad de jugar al juego de 'Cifras y letras'. Este juego consiste en formar la mejor palabra posible a partir de un
+conjunto de letras extraídas al azar de una bolsa. Por ejemplo, dadas las siguientes letras:
+
+<b>L    A    C    O    B    N</b>
+
+Podemos formar, entre otras, las palabras:
+<ul>
+<li>BLANCO
+<li>BANCO
+<li>BALON
+<li>LOCA
+<li>BOLA
+<li>BOCA
+<li>COLA
+<li>CLON
+</ul>
+
+El número de letras que se juegan en cada partida se decide de antemano, y las letras disponibles pueden repetirse.
+Existen dos modalidades de juego: juego a longitud y juego a puntos. En la primara modalidad se tendrá únicamente
+en cuenta el número de letras que conforman una palabra y en la segunda cada letra tendrá asignada una puntuación
+y el objetivo será formar una palabra con el mayor número de puntos.
+
+Para ello vamos a crear varias clases. En primer lugar la clase LetterSet que usa a su vez un struct LetterInfo (formado
+por dos enteros que indican las repeticiones y la puntuación para cada letra), y un contenedor subyacente, el cuál es un
+map, formado por una pareja con una letra y su respectivo LetterInfo. En segundo lugar, la clase Bag, que usa como
+contenedor un vector que almacena un tipo genérico. En tercer lugar, la clase LettersBag que depende de Bag, puesto que
+usamos un Bag con el que almacenamos, en este caso, datos de tipos char. Por último creamos la clase Dictionary, formada
+por un set de string, donde guardaremos las palabras que componen un diccionario de forma ordenada.
+
+# Ejecutables
+## Conjunto letras:
+@image html conjuntoletras.png
+
+Recopila información de un conjunto de letras a través de un archivo y calcula la puntuación de una palabra.
+
+> __conjunto_letras__ \<FichConjuntoLetras\> \<palabra\>
+@param "<FichConjuntoLetras>" Ruta al archivo con información sobre el conjunto de letras
+@param <palabra> Palabra a la que calcular la puntuación
+
+Por ejemplo, si nuestras puntuaciones son:
+
+<table>
+<tr><th>Letra                     <th>Puntuación
+<tr><td>a                         <td>1
+<tr><td>e                         <td>1
+<tr><td>g                         <td>2
+<tr><td>h                         <td>4
+<tr><td>i                         <td>1
+<tr><td>j                         <td>8
+<tr><td>l                         <td>1
+<tr><td>o                         <td>1
+<tr><td>r                         <td>1
+<tr><td>s                         <td>1
+<tr><td>u                         <td>1
+</table>
+
+Para la palabra "hola", la puntuación será 7, para la palabra "risa" la puntuación será 4 y pala la palabra "juego" la
+puntuación será 13.
+
+@image html conjletras.png
+
+Este ejecutable obtiene la puntuación para cada letra de la palabra y la va sumando para conseguir la puntuación total
+de la palabra.
+
+El programa usa un contenedor map, que contiene una pareja clave-valor. En nuestro caso, la clave es la letra y el valor
+un LetterInfo que contiene sus repeticiones y su puntuación. Map permite que las letras no se almacenen dos veces y que
+estas se encuentren ordenadas por orden alfabético. Además, permite localizar el LetterInfo respectivo a cada letra.Es
+parecido a un vector, pero en lugar de acceder con índices numéricos, se puede acceder con índices de tipo arbitrario.
+
+## Bolsa:
+@image html bolsa.png
+
+Rellena la bolsa con enteros o caracteres, según se le indique, y posteriormente los extrae hasta que la bolsa se quede
+sin elementos, es decir, se quede vacía. Los elementos se extraen aleatoriamente de la bolsa y se van imprimiendo en
+pantalla.
+
+> __bolsa__ \<letra\> \<a\> \<b\> \<c\> \<...\>
+@param "<letra>" Letra(puede ser C ó I) que indica si trabajaremos con una bolsa de caracteres (en caso de la letra C)
+o si trabajaremos con una bolsa de enteros (letra I)
+@param "<a>" Primer elemento
+@param "<b>" Segundo elemento
+@param "<c>" Tercer elemento
+@param "<...>" Resto de elementos en el mismo formato
+
+@image html bolsaint.png
+
+Este programa usa un contenedor vector, que almacena de forma lineal char o enteros según corresponda. Los vectores
+permiten el acceso directo a sus elementos a través de índices, de esta manera podemos introducir y extraer elementos
+de este en la posición que nos convenga.
+
+
+## Bolsa letras:
+@image html bolsaletras.png
+
+Recopila información de un conjunto de letras a través de un archivo y crea una bolsa de letras. A continuación,
+saca todos los elementos de la bolsa de forma aleatoria y los imprime por pantalla.
+
+> __bolsa_letras__ \<FichConjuntoLetras\>
+@param "<FichConjuntoLetras>" Ruta al archivo con información sobre el conjunto de letras
+@image html bagchar.png
+
+Este programa usa también un contenedor vector, que almacena de forma lineal, en este caso, char. Podemos acceder a sus
+elementos a través de índices, de esta manera podemos introducir y extraer elementos de este en la posición que nos
+convenga.
+
+
+
+## Cantidad letras:
+@image html cantidadletras.png
+
+Recopila las palabras que conforman un diccionario a través de un archivo y un LetterSet que indicará las letras que
+buscamos en el diccionario. El programa buscará una letra e imprimirá por pantalla la letra buscada, su número de
+ocurrencias y su frecuencia relativa, es decir, el número de ocurrencias de la letra entre el número total de letras
+que contiene nuestro diccionario. Este proceso se repetirá para cada letra contenida por nuestro LetterSet.
+
+@image html cantletras.png
+
+Por ejemplo, si nuestro diccionario es:
+
+<ul>
+<li>adios
+<li>arbol
+<li>cielo
+<li>hola
+<li>mesa
+<li>prisa
+<li>sol
+<li>taza
+</ul>
+
+Y el Letterset incluye sólo las letras "A" e "I", el resultado será:
+
+A 7 0.2
+
+I 3 0.08571
+
+*/
+
+## Diccionario:
+@image html
+
+Lee un diccionario desde un archivo de texto e imprime todas sus palabras por pantalla
+
+> __diccionario__ \<FichDiccionario\>
+@param "<FichDiccionarios>" Ruta al archivo con el diccionario
+
+Este diccionario usa en su representación interna un árbol que es recorrido en preorden. Este está formado por nodos
+que contienen los caracteres, así como información de si una cierta letra es el final de una palabra.
+
+## Palabras válidas diccionario:
+@image html
+
+## Partida letras:
+@image html
+
+Programa que se encargará de jugar una partida de nuestro juego de las letras. Va a construir el LettersSet para
+la partida a partir del archivo de letras, el Dictionary con las palabras que se consideran soluciones correctas, el
+Solver que va a jugar la partida y la LettersBag que se utilizará para extraer las letras. Una vez construidos los TDAs
+necesarios, extraerá las letras con las que se jugará la partida, utilizará el Solver para buscar las soluciones, e
+imprimirá por pantalla tanto las letras para la partida como las mejores soluciones que se pueden obtener con dichas
+letras y la puntuación de dichas soluciones.
+
+A modo de ejemplo, la salida del programa debe ser la siguiente:
+
+LETRAS DISPONIBLES:
+D S N T D A I E N
+SOLUCIONES:
+dentina
+entidad
+sentina
+PUNTUACION:
+7
+
+> __partida_letras__ \<FichDiccionario\> \<FichConjuntoLetras\> \<Modojuego\> \<CantidadLetras\>
+
+@param "<FichDiccionarios>" Ruta al archivo con el diccionario
+@param "<FichConjuntoLetras>" Ruta al archivo que contiene las letras y su puntuación
+@param "<Modojuego>" Modo de juego (L = longitud, P = puntuación)
+@param "<CantidadLetras>" Cantidad de letras para la partida
+
+
+
+## Partida letras eficiente:
+@image html
+
+Programa que se encargará de jugar una partida de nuestro juego de las letras, pero esta vez implementado de forma más
+eficiente. Al igual que anteriormente construirá todos los TDAs necesarios y jugará la partida, imprimiendo también por
+pantalla tanto las letras para la partida como las mejores soluciones que se pueden obtener con dichas letras y la
+puntuación de dichas soluciones. La salida va a ser la misma que en el programa anterior.
+
+A modo de ejemplo, la salida del programa debe ser la siguiente:
+
+LETRAS DISPONIBLES:
+D S N T D A I E N
+SOLUCIONES:
+dentina
+entidad
+sentina
+PUNTUACION:
+7
+
+> __partida_letras_eficiente__ \<FichConjuntoLetras\> \<FichDiccionario\> \<Modojuego\> \<CantidadLetras\>
+
+@param "<FichConjuntoLetras>" Ruta al archivo que contiene las letras y su puntuación
+@param "<FichDiccionarios>" Ruta al archivo con el diccionario
+@param "<Modojuego>" Modo de juego (L = longitud, P = puntuación)
+@param "<CantidadLetras>" Cantidad de letras para la partida
+
+
+
+
